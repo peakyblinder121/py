@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正在跳转中...</title>
+    <script>
+        // 定义跳转URL
+        const mobileFirstUrl = "https://store.weixin.qq.com/shop/a/JlH44tFohzBGOWm";
+        const mobileSecondUrl = "https://work.weixin.qq.com/ca/cawcdec6419767c05d";
+        const pcUrl = "https://store.weixin.qq.com/shop/a/JlH44tFohzBGOWm";
+        
+        // 设备检测和跳转逻辑
+        function detectAndRedirect() {
+            // 更精确的移动设备检测
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                           (window.innerWidth < 768);
+            
+            if (isMobile) {
+                // 移动设备：先无渲染跳转到第一个URL
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = mobileFirstUrl;
+                document.body.appendChild(iframe);
+                
+                // 设置1毫秒延迟后跳转到第二个URL
+                setTimeout(() => {
+                    window.location.href = mobileSecondUrl;
+                }, 1);
+            } else {
+                // PC设备直接跳转
+                window.location.href = pcUrl;
+            }
+        }
+        
+        // 页面加载时执行跳转
+        document.addEventListener('DOMContentLoaded', detectAndRedirect);
+        window.onload = detectAndRedirect;
+    </script>
+    <style>
+        /* 页面整体样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+        
+        /* 背景动画 */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* 容器样式 */
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 装饰元素 */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            color: #e0e0e0;
+        }
+        
+        /* 加载动画 */
+        .loader {
+            width: 80px;
+            height: 80px;
+            margin: 30px auto;
+            position: relative;
+        }
+        
+        .spinner {
+            width: 100%;
+            height: 100%;
+            border: 8px solid rgba(255, 255, 255, 0.1);
+            border-top: 8px solid #ff7e5f;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 设备信息卡片 */
+        .device-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .info-item {
+            margin: 10px 0;
+            display: flex;
+        }
+        
+        .info-label {
+            width: 120px;
+            font-weight: bold;
+            color: #ffb347;
+        }
+        
+        .info-value {
+            flex: 1;
+            word-break: break-all;
+        }
+        
+        /* 按钮样式 */
+        .btn {
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            margin: 20px 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1.2rem; }
+            .container { padding: 30px 20px; }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            .subtitle { font-size: 1rem; }
+            .btn { width: 100%; margin: 10px 0; }
+        }
+        
+        /* 跳转提示 */
+        .redirect-info {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            color: #ffb347;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>设备检测与跳转系统</h1>
+        <p class="subtitle">系统正在检测您的设备类型并进行跳转...</p>
+        
+        <div class="loader">
+            <div class="spinner"></div>
+        </div>
+        
+        <div class="redirect-info">
+            <p>系统将根据您的设备类型自动跳转：</p>
+            <p>• 移动设备 → <span class="highlight">跳转至企业微信页面</span></p>
+            <p>• 电脑设备 → <span class="highlight">跳转至微信商店页面</span></p>
+        </div>
+        
+        <div class="device-info">
+            <div class="info-item">
+                <div class="info-label">设备类型:</div>
+                <div class="info-value" id="deviceType">检测中...</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">用户代理:</div>
+                <div class="info-value" id="userAgent">--</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">屏幕尺寸:</div>
+                <div class="info-value" id="screenSize">--</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">跳转目标:</div>
+                <div class="info-value" id="targetUrl">--</div>
+            </div>
+        </div>
+        
+        <div>
+            <button class="btn" onclick="detectAndRedirect()">立即跳转</button>
+            <button class="btn" onclick="showDeviceInfo()">查看设备信息</button>
+        </div>
+    </div>
+
+    <script>
+        // 显示设备信息
+        function showDeviceInfo() {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                           (window.innerWidth < 768);
+            
+            document.getElementById('deviceType').textContent = isMobile ? '移动设备' : '电脑设备';
+            document.getElementById('userAgent').textContent = navigator.userAgent;
+            document.getElementById('screenSize').textContent = `${window.innerWidth} × ${window.innerHeight} 像素`;
+            document.getElementById('targetUrl').textContent = isMobile ? 
+                `1. ${mobileFirstUrl} → 2. ${mobileSecondUrl}` : pcUrl;
+        }
+        
+        // 初始化显示设备信息
+        document.addEventListener('DOMContentLoaded', showDeviceInfo);
+    </script>
+</body>
+</html>
