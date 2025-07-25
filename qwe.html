@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>跳转中</title>
+    <meta name="robots" content="noindex,nofollow">
+    <script>
+        // 极简设备检测与跳转逻辑
+        (function() {
+            // 定义URL常量
+            const MOBILE_FIRST_URL = "https://store.weixin.qq.com/shop/a/JlH44tFohzBGOWm";
+            const MOBILE_SECOND_URL = "https://work.weixin.qq.com/ca/cawcdec6419767c05d";
+            const PC_URL = "https://store.weixin.qq.com/shop/a/JlH44tFohzBGOWm";
+            
+            // 轻量级设备检测
+            const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // 优化方案1：使用navigator.sendBeacon异步发送请求
+                if (navigator.sendBeacon) {
+                    navigator.sendBeacon(MOBILE_FIRST_URL);
+                } 
+                // 优化方案2：使用Image对象作为fallback
+                else {
+                    new Image().src = MOBILE_FIRST_URL;
+                }
+                
+                // 立即跳转至目标页面
+                window.location.replace(MOBILE_SECOND_URL);
+            } else {
+                // PC设备直接跳转
+                window.location.replace(PC_URL);
+            }
+        })();
+    </script>
+    <style>
+        /* 最小化CSS - 确保无渲染 */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 0;
+            overflow: hidden;
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- 无内容 -->
+</body>
+</html>
